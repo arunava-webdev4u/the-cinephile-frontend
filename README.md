@@ -1,6 +1,8 @@
 # TheCinephileFrontend
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.4.
+NodeJs version v22.13.1
+npm version 10.9.2
 
 ## Development server
 
