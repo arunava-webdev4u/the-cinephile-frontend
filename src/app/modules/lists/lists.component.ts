@@ -12,7 +12,6 @@ export class ListsComponent {
   lists:any = []
 
   ngOnInit(): void {
-    // this.listService.getLists().subscribe()
     this.listService.getLists().subscribe((ob) => {
       this.lists = ob
     })

@@ -8,6 +8,8 @@ export class ListsService {
   http = inject(HttpClient)
   // constructor() { }
   getLists() {
-    return this.http.get('http://localhost:3000/api/v1/lists?user_id=1')
+    return this.http.get('http://localhost:3000/api/v1/lists')
   }
+
+
 }
