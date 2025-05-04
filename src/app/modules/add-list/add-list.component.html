@@ -1,0 +1,12 @@
+<div>
+    <h3>Add List</h3>
+    <form [formGroup]="addListForm" (ngSubmit)="onSubmit()">
+        <div>
+            <input id="name" formControlName="name" type="text" placeholder="Enter Name" class="input input-bordered w-full max-w-xs" />
+        </div>
+        <div>
+            <input id="description" formControlName="description" type="text" placeholder="Enter Description" class="input input-bordered w-full max-w-xs" />
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</div>

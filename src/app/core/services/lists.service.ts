@@ -11,5 +11,8 @@ export class ListsService {
     return this.http.get('http://localhost:3000/api/v1/lists')
   }
 
+  createList(list:any) {
+    return this.http.post('http://localhost:3000/api/v1/lists', {'list': {...list}})
+  }
 
 }
