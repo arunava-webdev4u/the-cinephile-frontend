@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-
+import { SearchService } from '../../services/search.service';
 
 @Component({
   selector: 'app-search',
@@ -9,6 +9,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
   styleUrl: './search.component.css'
 })
 export class SearchComponent {
+  searchService: SearchService = inject(SearchService);
   searchTerm: FormGroup;
 
   constructor() {
@@ -17,7 +18,9 @@ export class SearchComponent {
     });
   }
 
-  search() {
-    console.log(this.searchTerm.value);
+  searchMovies() {
+    this.searchService.searchMovies(this.searchTerm.value.query).subscribe((ob) => {
+      console.log(ob)
+    })
   }
 }

@@ -1,7 +1,8 @@
 <!-- Search Component -->
-<div class="max-w-2xl mx-auto px-4">
-    <h4>Search Movies, TV Shows & Celibrities</h4>
-    <form [formGroup]="searchTerm" (ngSubmit)="search()" class="relative flex items-center group">
+<div class="w-full mx-auto px-4">
+<!-- <div class="max-w-2xl mx-auto px-4"> -->
+    <h4>Search Movies...</h4>
+    <form [formGroup]="searchTerm" (ngSubmit)="searchMovies()" class="relative flex items-center group">
       <!-- Input -->
       <input 
         formControlName="query"
@@ -35,4 +36,16 @@
       <br>
       <button>Search</button>
     </form>
+    <div class="mt-4 max-h-[60vh] overflow-y-auto">
+      <!-- Your search results content will go here -->
+       <div>Lorem ipsum dolor sit amet c</div>
+       <div>Lorem ipsum dolor sit amet c</div>
+       <div>Lorem ipsum dolor sit amet c</div>
+       <div>Lorem ipsum dolor sit amet c</div>
+       <div>Lorem ipsum dolor sit amet c</div>
+       <div>Lorem ipsum dolor sit amet c</div>
+       <div>Lorem ipsum dolor sit amet c</div>
+       <div>Lorem ipsum dolor sit amet c</div>
+       <div>Lorem ipsum dolor sit amet c</div>
+    </div>
   </div>
