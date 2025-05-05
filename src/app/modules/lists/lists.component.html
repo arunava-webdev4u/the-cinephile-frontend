@@ -1,20 +1,22 @@
-<div class="flex justify-center">
-    <div class="w-fit grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:mx-10">
-        @for (list of lists; track $index) {
-            <div [id]="list.id" class="md:min-w-72 md:max-w-80 card bg-base-100 drop-shadow-xl m-3 my-6">
-                <figure>
-                    <img src="https://cdn.pixabay.com/photo/2019/04/24/21/55/cinema-4153289_1280.jpg" alt="Shoes" />
-                </figure>
-                <div class="card-body">
-                    <h2 class="card-title">
-                        {{list.name}}
-                    </h2>
-                    <p>{{list.description || "some description..."}}</p>
-                    <div class="card-actions justify-end">
-                        <div class="badge badge-secondary">NEW</div>
+<div class="min-h-screen bg-slate-50">
+    <div class="flex justify-center">
+        <div class="w-fit grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:mx-10">
+            @for (list of lists; track $index) {
+                <div [id]="list.id" class="md:min-w-72 md:max-w-80 card bg-white drop-shadow-xl m-3 my-6">
+                    <figure>
+                        <img src="https://cdn.pixabay.com/photo/2019/04/24/21/55/cinema-4153289_1280.jpg" alt="Shoes" />
+                    </figure>
+                    <div class="card-body">
+                        <h2 class="card-title">
+                            {{list.name}}
+                        </h2>
+                        <p>{{list.description || "some description..."}}</p>
+                        <div class="card-actions justify-end">
+                            <div class="badge badge-secondary">NEW</div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        }
+            }
+        </div>
     </div>
 </div>
