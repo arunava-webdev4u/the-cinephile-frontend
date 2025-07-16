@@ -8,5 +8,7 @@ export const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'lists', component: ListsComponent },
     { path: 'users', component: UsersComponent },
-    { path: 'add-list', component: AddListComponent }
+    { path: 'add-list', component: AddListComponent },
+    { path: 'auth', loadChildren: () => import("./modules/auth/auth.module").then(m => m.AuthModule) },
+    { path: '**', redirectTo: '' }
 ];
