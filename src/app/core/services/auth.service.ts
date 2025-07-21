@@ -1,41 +1,75 @@
-import { Injectable, signal, inject } from '@angular/core';
+import { Injectable, signal, inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+
+interface UserInterface {
+  token: string;
+  user: {
+    id: number;
+    email: string;
+    created_at: string;
+    updated_at: string;
+    first_name: string;
+    last_name: string;
+    date_of_birth: string;
+    country: number;
+    jti: string;
+  }
+}
+
+interface LoginInterface {
+  user: {
+    email: string;
+    password: string;
+  }
+}
+
+interface RegisterInterface {}
 
 @Injectable({
   providedIn: 'root'
 })
 
-// interface UserInterface {
-//   token: string;
-//   user: {
-//     id: number;
-//     email: string;
-//     password_digest: string;
-//     created_at: string;
-//     updated_at: string;
-//     first_name: string;
-//     last_name: string;
-//     date_of_birth: string;
-//     country: number;
-//     jti: string;
-//   }
-// }
-
 export class AuthService {
-  private apiUrl = "http://localhost:3000/api/v1/auth";
-  // currentUserSignal = signal<UserInterface | undefined | null>(undefined);
-  currentUserSignal = signal(undefined);
   http = inject(HttpClient)
-  
+  private platformId = inject(PLATFORM_ID);
 
+  private apiUrl = "http://localhost:3000/api/v1/auth";
+  authTokenSignal  = signal<string | undefined | null>(undefined);
+  
   constructor() {
-    // this.checkAuthStatus();
+    this.initAuth(); // ✅ Automatically run once when app starts
   }
 
-  login(loginCredentials) {
-    return this.http.post(`${this.apiUrl}/login`, loginCredentials).subscribe((response) => {
-      console.log("Login successful");
-      console.log(response);
+  login(loginCredentials:LoginInterface) {
+    return this.http.post<UserInterface>(`${this.apiUrl}/login`, loginCredentials).subscribe({
+      next: (response) => {
+        if (isPlatformBrowser(this.platformId)) {
+          console.log('Login successful:');
+          localStorage.setItem('token', response['token']);
+          this.authTokenSignal.set(localStorage.getItem('token'));
+        }
+      },
+      error: (err) => {
+        if (err.status === 401 || err.status === 404) {
+          console.error('Invalid email or password', err);
+        } else {
+          console.error('Something went wrong. Please try again later.', err);
+        }
+      }
     })
+  }
+
+  // logout() {}
+  // register() {}
+  private initAuth() {
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('token')
+      if (token) {
+        this.authTokenSignal.set(token)
+      } else {
+        this.authTokenSignal.set(null)
+      }
+    }
   }
 }
