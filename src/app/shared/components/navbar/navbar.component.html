@@ -59,7 +59,7 @@
 
       <!-- Account -->
       @if (authService.authTokenSignal()) {
-        <div class="avatar">
+        <div class="avatar cursor-pointer" [routerLink]="['/profile']">
           <div class="w-12 rounded-full">
             <img src="assets/images/avatar-sample.jpg" />
           </div>

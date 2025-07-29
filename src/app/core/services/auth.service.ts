@@ -37,7 +37,7 @@ export class AuthService {
   private platformId = inject(PLATFORM_ID);
 
   private apiUrl = "http://localhost:3000/api/v1/auth";
-  authTokenSignal  = signal<string | undefined | null>(undefined);
+  authTokenSignal = signal<string | undefined | null>(undefined);
   
   constructor() {
     this.initAuth();
@@ -63,7 +63,14 @@ export class AuthService {
     })
   }
 
-  // logout() {}
+  logout() {
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem('token');
+      this.authTokenSignal.set(null);
+      this.router.navigate(['/']);
+      console.log('Logged out successfully');
+    }
+  }
   // register() {}
   private initAuth() {
     if (isPlatformBrowser(this.platformId)) {
