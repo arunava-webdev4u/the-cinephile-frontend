@@ -1,6 +1,7 @@
 import { Injectable, signal, inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 interface UserInterface {
   token: string;
@@ -32,22 +33,24 @@ interface RegisterInterface {}
 
 export class AuthService {
   http = inject(HttpClient)
+  router = inject(Router);
   private platformId = inject(PLATFORM_ID);
 
   private apiUrl = "http://localhost:3000/api/v1/auth";
   authTokenSignal  = signal<string | undefined | null>(undefined);
   
   constructor() {
-    this.initAuth(); // ✅ Automatically run once when app starts
+    this.initAuth();
   }
 
   login(loginCredentials:LoginInterface) {
     return this.http.post<UserInterface>(`${this.apiUrl}/login`, loginCredentials).subscribe({
       next: (response) => {
         if (isPlatformBrowser(this.platformId)) {
-          console.log('Login successful:');
+          console.log('Login successful');
           localStorage.setItem('token', response['token']);
           this.authTokenSignal.set(localStorage.getItem('token'));
+          this.router.navigate(['/']);
         }
       },
       error: (err) => {
