@@ -71,7 +71,11 @@ export class AuthService {
       console.log('Logged out successfully');
     }
   }
-  // register() {}
+
+  register() {
+    console.log('Register method not implemented yet');
+  }
+
   private initAuth() {
     if (isPlatformBrowser(this.platformId)) {
       const token = localStorage.getItem('token')

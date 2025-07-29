@@ -4,8 +4,10 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 
-import { LoginComponent } from './login/login.component';
 import { AuthRoutingModule } from './auth-routing.module';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+
 
 @NgModule({
   declarations: [],
@@ -13,7 +15,9 @@ import { AuthRoutingModule } from './auth-routing.module';
     CommonModule,
     RouterModule,
     AuthRoutingModule,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ]
 })
+
 export class AuthModule { }
