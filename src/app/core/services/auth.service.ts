@@ -25,7 +25,17 @@ interface LoginInterface {
   }
 }
 
-interface RegisterInterface {}
+interface RegisterInterface {
+  user: {
+    email: string;
+    password: string;
+    confirm_password: string;
+    first_name: string;
+    last_name: string;
+    country: number;
+    date_of_birth: string;
+  }
+}
 
 @Injectable({
   providedIn: 'root'
@@ -72,8 +82,9 @@ export class AuthService {
     }
   }
 
-  register() {
-    console.log('Register method not implemented yet');
+  register(registrationData:LoginInterface) {
+    console.log('Register User');
+    console.log(registrationData);
   }
 
   private initAuth() {

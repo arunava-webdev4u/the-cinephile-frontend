@@ -1,1 +1,92 @@
-<p>register works!</p>
+<div class="min-h-screen bg-slate-50">
+<div class="flex justify-center">
+    <div class="rounded-lg drop-shadow-xl w-full max-w-md p-3 m-3 mt-6 bg-white">
+        <h3 class="text-2xl font-bold mb-6 text-center">Register</h3>
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-4">
+            
+            <!-- First Name -->
+            <div class="flex flex-col space-y-2">
+                <input 
+                    id="first_name" 
+                    formControlName="first_name" 
+                    type="text" 
+                    placeholder="Enter first_name" 
+                    class="input input-bordered w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                />
+            </div>
+
+            <!-- First Name -->
+            <div class="flex flex-col space-y-2">
+                <input 
+                    id="last_name" 
+                    formControlName="last_name" 
+                    type="text" 
+                    placeholder="Enter last_name" 
+                    class="input input-bordered w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                />
+            </div>
+
+            <!-- Country -->
+            <div class="flex flex-col space-y-2">
+                <input 
+                    id="country" 
+                    formControlName="country" 
+                    type="number" 
+                    placeholder="Enter country" 
+                    class="input input-bordered w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                />
+            </div>
+            <!-- Date Of Birth -->
+            <div class="flex flex-col space-y-2">
+                <input 
+                    id="date_of_birth" 
+                    formControlName="date_of_birth" 
+                    type="date" 
+                    placeholder="Enter date_of_birth" 
+                    class="input input-bordered w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                />
+            </div>
+
+            <!-- Email -->
+            <div class="flex flex-col space-y-2">
+                <input 
+                    id="email" 
+                    formControlName="email" 
+                    type="email" 
+                    placeholder="Enter Email" 
+                    class="input input-bordered w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                />
+            </div>
+
+            <!-- Password -->
+            <div class="flex flex-col space-y-2">
+                <input 
+                    id="password" 
+                    formControlName="password" 
+                    type="text" 
+                    placeholder="Enter Password" 
+                    class="input input-bordered w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                />
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="flex flex-col space-y-2">
+                <input 
+                    id="confirm_password" 
+                    formControlName="confirm_password" 
+                    type="text" 
+                    placeholder="Enter confirm_password" 
+                    class="input input-bordered w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                />
+            </div>
+
+            <button 
+                type="submit" 
+                class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors font-medium focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            >
+                Sign Up
+            </button>
+        </form>
+    </div>
+</div>
+</div>
