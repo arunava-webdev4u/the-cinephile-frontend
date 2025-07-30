@@ -25,7 +25,17 @@ interface LoginInterface {
   }
 }
 
-interface RegisterInterface {}
+interface RegisterInterface {
+  user: {
+    email: string;
+    password: string;
+    confirm_password: string;
+    first_name: string;
+    last_name: string;
+    country: number;
+    date_of_birth: string;
+  }
+}
 
 @Injectable({
   providedIn: 'root'
@@ -47,10 +57,10 @@ export class AuthService {
     return this.http.post<UserInterface>(`${this.apiUrl}/login`, loginCredentials).subscribe({
       next: (response) => {
         if (isPlatformBrowser(this.platformId)) {
-          console.log('Login successful');
           localStorage.setItem('token', response['token']);
           this.authTokenSignal.set(localStorage.getItem('token'));
           this.router.navigate(['/']);
+          console.log('Login successful');
         }
       },
       error: (err) => {
@@ -71,7 +81,27 @@ export class AuthService {
       console.log('Logged out successfully');
     }
   }
-  // register() {}
+
+  register(registrationData:RegisterInterface) {
+    return this.http.post<UserInterface>(`${this.apiUrl}/register`, registrationData).subscribe({
+      next: (response) => {
+        if (isPlatformBrowser(this.platformId)) {
+          localStorage.setItem('token', response['token']);
+          this.authTokenSignal.set(localStorage.getItem('token'));
+          this.router.navigate(['/']);
+          console.log('Registration successful');
+        }
+      },
+      error: (err) => {
+        if (err.status == 400) {
+          console.error('Registration failed. Please check your input.', err);
+        } else {
+          console.error('Something went wrong. Please try again later.', err);
+        }
+      }
+    })
+  }
+
   private initAuth() {
     if (isPlatformBrowser(this.platformId)) {
       const token = localStorage.getItem('token')
