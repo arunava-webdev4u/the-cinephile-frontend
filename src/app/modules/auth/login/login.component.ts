@@ -26,9 +26,9 @@ export class LoginComponent {
       password: new FormControl("")
     });
 
-    if (!this.currentAuthStatus) {
-      console.log('No user is currently logged in.');
-    }
+    // if (!this.currentAuthStatus) {
+    //   console.log('No user is currently logged in.');
+    // }
   }
 
   onSubmit() {
