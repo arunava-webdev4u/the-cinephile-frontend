@@ -37,13 +37,12 @@ export class RegisterComponent {
       date_of_birth: new FormControl(null),
     });
 
-    if (!this.currentAuthStatus) {
-      console.log('No user is currently logged in.');
-    }
+    // if (!this.currentAuthStatus) {
+    //   console.log('No user is currently logged in.');
+    // }
   }
 
   onSubmit() {
-    console.log('Register form submitted');
     const user:RegisterInterface = { user: { ...this.registerForm.value } }
     this.authService.register(user)
   }
