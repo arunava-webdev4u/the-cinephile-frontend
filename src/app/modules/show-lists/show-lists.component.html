@@ -5,7 +5,7 @@
         <div class="flex overflow-x-auto snap-x snap-mandatory space-x-4 w-full">
             @for (list of default_lists; track $index) {
                 <!-- Card -->
-                <div class="card bg-base-100 shadow-xl rounded-none">
+                <div [id]="list.id" class="card bg-base-100 shadow-xl rounded-none">
                     <figure class="w-80">
                         <img
                             src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
@@ -15,6 +15,7 @@
                     <div class="card-body">
                         <h2 class="card-title p-0 m-0">{{ list.name }}</h2>
                         <p>{{ list.description }}</p>
+                        <p>User Id: {{ list.user_id }}</p>
                     </div>
                 </div>
             }
@@ -27,7 +28,7 @@
         <div class="flex overflow-x-auto snap-x snap-mandatory space-x-4 w-full">
             @for (list of custom_lists; track $index) {
                 <!-- Card -->
-                <div class="card bg-base-100 shadow-xl rounded-none">
+                <div [id]="list.id" class="card bg-base-100 shadow-xl rounded-none">
                     <figure class="w-80">
                         <img
                             src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
@@ -37,6 +38,7 @@
                     <div class="card-body">
                         <h2 class="card-title p-0 m-0">{{ list.name }}</h2>
                         <p>{{ list.description }}</p>
+                        <p>User Id: {{ list.user_id }}</p>
                     </div>
                 </div>
             }

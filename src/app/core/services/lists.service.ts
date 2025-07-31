@@ -1,15 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-
-interface ListInterface {
-  id: number,
-  user_id: number,
-  name: string,
-  description: string,
-  private: boolean,
-  created_at: string,
-  updated_at: string
-}
+import { List } from '../../shared/interfaces/list';
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +26,7 @@ export class ListsService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });
-    return this.http.get<ListInterface[]>(`${this.baseUrl}/${type}`, { headers });
+    return this.http.get<List[]>(`${this.baseUrl}/${type}`, { headers });
   }
 
   // createList(list:any) {

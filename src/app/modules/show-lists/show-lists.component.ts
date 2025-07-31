@@ -1,15 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { ListsService } from '../../core/services/lists.service'
-
-interface ListInterface {
-  id: number,
-  user_id: number,
-  name: string,
-  description: string,
-  private: boolean,
-  created_at: string,
-  updated_at: string
-}
+import { List } from '../../shared/interfaces/list';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-show-lists',
@@ -19,28 +11,36 @@ interface ListInterface {
 })
 export class ShowListsComponent {
     listsService = inject(ListsService)
-    default_lists:ListInterface[] = [];
-    custom_lists:ListInterface[] = [];
+    default_lists:List[] = [];
+    custom_lists:List[] = [];
+    authService = inject(AuthService);
   
-    ngOnInit() {
-        this.listsService.getDefaultLists().subscribe({
-            next: (response) => {
-                this.default_lists = response;
-            },
-            error: (error) => {
-                console.error('Error fetching lists:', error);
+    constructor() {
+        effect(() => {
+            const token = this.authService.authTokenSignal();
+            if (!token) {
+                this.default_lists = [];
+                this.custom_lists = [];
+                return;
             }
-        })
 
-        this.listsService.getCustomLists().subscribe({
-            next: (response) => {
-                this.custom_lists = response;
-            },
-            error: (error) => {
-                console.error('Error fetching lists:', error);
-            }
-        })
+            this.listsService.getDefaultLists().subscribe({
+                next: (response) => {
+                    this.default_lists = response;
+                },
+                error: (error) => {
+                    console.error('Error fetching lists:', error);
+                }
+            })
 
-
+            this.listsService.getCustomLists().subscribe({
+                next: (response) => {
+                    this.custom_lists = response;
+                },
+                error: (error) => {
+                    console.error('Error fetching lists:', error);
+                }
+            })
+        });
     }
 }
