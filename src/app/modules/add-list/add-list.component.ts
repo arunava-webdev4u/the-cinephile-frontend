@@ -21,8 +21,8 @@ export class AddListComponent {
   }
 
   onSubmit() {
-    this.listService.createList(this.addListForm.value).subscribe((ob) => {
-      console.log(ob);
-    })
+  //   this.listService.createList(this.addListForm.value).subscribe((ob) => {
+  //     console.log(ob);
+  //   })
   }
 }
