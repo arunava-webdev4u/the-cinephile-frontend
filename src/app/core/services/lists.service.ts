@@ -1,32 +1,68 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { Injectable, effect, inject, signal } from '@angular/core';
+
+import { AuthService } from './auth.service';
 import { List } from '../../shared/interfaces/list';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ListsService {
-  http = inject(HttpClient)
+  http = inject(HttpClient);
+  authService = inject(AuthService);
 
   baseUrl = "http://localhost:3000/api/v1"
-  token = localStorage.getItem('token');
+  token = this.authService.authTokenSignal();
 
-  // constructor() { }
+  defaultLists = signal<List[]>([]);
+  customLists = signal<List[]>([]);
 
-  getDefaultLists() {
-    return this.getLists('default_list');
+  constructor() {
+    effect(() => {
+      this.token = this.authService.authTokenSignal();
+      this.deleteLists();
+    })
   }
 
-  getCustomLists() {
-    return this.getLists('custom_list');
+  getLists() {
+    this.getDefaultLists();
+    this.getCustomLists();
   }
 
-  // getLists() {
-  getLists(type: string) {
+  private getDefaultLists() {
+    this.fetchLists('default_list').subscribe({
+      next: (response) => {
+        this.defaultLists.set(response);
+      },
+      error: (error) => {
+        console.error('Error fetching default lists:', error);
+      },
+    });
+  }
+
+  private getCustomLists() {
+    this.fetchLists('custom_list').subscribe({
+      next: (response) => {
+        this.customLists.set(response);
+      },
+      error: (error) => {
+        console.error('Error fetching custom lists:', error);
+      }
+    });
+    return this.customLists();
+  }
+
+  // fetchLists() {
+  private fetchLists(type: string) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });
     return this.http.get<List[]>(`${this.baseUrl}/${type}`, { headers });
+  }
+
+  private deleteLists() {
+    this.defaultLists.set([]);
+    this.customLists.set([]);
   }
 
   // createList(list:any) {

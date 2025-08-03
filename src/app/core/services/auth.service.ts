@@ -3,16 +3,17 @@ import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
+import { User } from '../../shared/interfaces/user';
+
 import { Login } from '../../shared/interfaces/login';
 import { Register } from '../../shared/interfaces/register';
-import { User } from '../../shared/interfaces/user';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AuthService {
-  http = inject(HttpClient)
+  http = inject(HttpClient);
   router = inject(Router);
   private platformId = inject(PLATFORM_ID);
 
@@ -45,8 +46,8 @@ export class AuthService {
 
   logout() {
     if (isPlatformBrowser(this.platformId)) {
-      localStorage.removeItem('token');
       this.authTokenSignal.set(null);
+      localStorage.removeItem('token');
       this.router.navigate(['/']);
       // console.info('Logged out successfully');
     }
