@@ -3,6 +3,7 @@ import { Injectable, effect, inject, signal } from '@angular/core';
 
 import { AuthService } from './auth.service';
 import { List } from '../../shared/interfaces/list';
+import { AddList } from '../../shared/interfaces/add-list';
 
 @Injectable({
   providedIn: 'root'
@@ -64,7 +65,7 @@ export class ListsService {
     return this.http.get<List[]>(`${this.baseUrl}/${type}`, { headers });
   }
 
-  createList(list:List) {
+  createList(list:AddList) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });
