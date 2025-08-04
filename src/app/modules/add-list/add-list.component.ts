@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ListsService } from '../../core/services/lists.service'
+import { Router } from '@angular/router';
 
+import { ListsService } from '../../core/services/lists.service';
 
 @Component({
   selector: 'app-add-list',
@@ -10,7 +11,9 @@ import { ListsService } from '../../core/services/lists.service'
   styleUrl: './add-list.component.css'
 })
 export class AddListComponent {
-  listService = inject(ListsService)
+  router = inject(Router);
+  listService = inject(ListsService);
+
   addListForm: FormGroup;
 
   constructor() {
@@ -21,8 +24,16 @@ export class AddListComponent {
   }
 
   onSubmit() {
-  //   this.listService.createList(this.addListForm.value).subscribe((ob) => {
-  //     console.log(ob);
-  //   })
+    this.listService.createList(this.addListForm.value).subscribe({
+      next: (response) => {
+        console.log('List created successfully:', response);
+      },
+      error: (error) => {
+        console.error('Error creating list:', error);
+      },
+      complete: () => {
+        this.router.navigate(['/show-lists']);
+      }
+    });
   }
 }

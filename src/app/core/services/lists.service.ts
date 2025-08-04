@@ -52,7 +52,11 @@ export class ListsService {
     return this.customLists();
   }
 
-  // fetchLists() {
+  private deleteLists() {
+    this.defaultLists.set([]);
+    this.customLists.set([]);
+  }
+
   private fetchLists(type: string) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
@@ -60,12 +64,10 @@ export class ListsService {
     return this.http.get<List[]>(`${this.baseUrl}/${type}`, { headers });
   }
 
-  private deleteLists() {
-    this.defaultLists.set([]);
-    this.customLists.set([]);
+  createList(list:List) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post(`${this.baseUrl}/custom_list`, {'list': {...list}}, { headers });
   }
-
-  // createList(list:any) {
-  //   return this.http.post('http://localhost:3000/api/v1/lists', {'list': {...list}})
-  // }
 }
