@@ -8,7 +8,7 @@ export const authGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
 
   if (authService.authTokenSignal() === undefined || authService.authTokenSignal() === null) {
-    console.log('Auth Guard: No token found, redirecting to login');
+    console.error('Auth Guard: No token found, redirecting to login');
     router.navigate(['/auth/login']);
     return false;
   }

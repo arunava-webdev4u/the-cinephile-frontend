@@ -1,18 +1,74 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable, effect, inject, signal } from '@angular/core';
+
+import { AuthService } from './auth.service';
+import { List } from '../../shared/interfaces/list';
+import { AddList } from '../../shared/interfaces/add-list';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ListsService {
-  http = inject(HttpClient)
-  // constructor() { }
+  http = inject(HttpClient);
+  authService = inject(AuthService);
+
+  baseUrl = "http://localhost:3000/api/v1"
+  token = this.authService.authTokenSignal();
+
+  defaultLists = signal<List[]>([]);
+  customLists = signal<List[]>([]);
+
+  constructor() {
+    effect(() => {
+      this.token = this.authService.authTokenSignal();
+      this.deleteLists();
+    })
+  }
+
   getLists() {
-    return this.http.get('http://localhost:3000/api/v1/lists')
+    this.getDefaultLists();
+    this.getCustomLists();
   }
 
-  createList(list:any) {
-    return this.http.post('http://localhost:3000/api/v1/lists', {'list': {...list}})
+  private getDefaultLists() {
+    this.fetchLists('default_list').subscribe({
+      next: (response) => {
+        this.defaultLists.set(response);
+      },
+      error: (error) => {
+        console.error('Error fetching default lists:', error);
+      },
+    });
   }
 
+  private getCustomLists() {
+    this.fetchLists('custom_list').subscribe({
+      next: (response) => {
+        this.customLists.set(response);
+      },
+      error: (error) => {
+        console.error('Error fetching custom lists:', error);
+      }
+    });
+    return this.customLists();
+  }
+
+  private deleteLists() {
+    this.defaultLists.set([]);
+    this.customLists.set([]);
+  }
+
+  private fetchLists(type: string) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<List[]>(`${this.baseUrl}/${type}`, { headers });
+  }
+
+  createList(list:AddList) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post(`${this.baseUrl}/custom_list`, {'list': {...list}}, { headers });
+  }
 }
