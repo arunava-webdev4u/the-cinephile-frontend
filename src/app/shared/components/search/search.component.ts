@@ -1,6 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { SearchService } from '../../services/search.service';
+
+import { MediaService } from '../../../core/services/media.service';
+
+interface SearchedItem {
+  title: string;
+}
 
 @Component({
   selector: 'app-search',
@@ -9,8 +14,10 @@ import { SearchService } from '../../services/search.service';
   styleUrl: './search.component.css'
 })
 export class SearchComponent {
-  searchService: SearchService = inject(SearchService);
+  mediaService: MediaService = inject(MediaService);
   searchTerm: FormGroup;
+
+  searchedItems:SearchedItem[] = [];
 
   constructor() {
     this.searchTerm = new FormGroup({
@@ -19,8 +26,16 @@ export class SearchComponent {
   }
 
   searchMovies() {
-    this.searchService.searchMovies(this.searchTerm.value.query).subscribe((ob) => {
-      console.log(ob)
+    // this.mediaService.searchMedia(this.searchTerm.value.query)
+    // console.log(this.searchTerm.value)
+    this.mediaService.searchMedia(this.searchTerm.value.query).subscribe({
+      next: (response: any) => {
+        this.searchedItems = response.result.results;
+        console.log('Search results:', this.searchedItems);
+      },
+      error: (error) => {
+        console.error('Error searching movies:', error);
+      }
     })
   }
 }
