@@ -1,18 +1,13 @@
 <!-- Search Component -->
 <div class="w-full mx-auto px-4">
 <!-- <div class="max-w-2xl mx-auto px-4"> -->
-    <h4>Search Movies...</h4>
     <form [formGroup]="searchTerm" (ngSubmit)="searchMovies()" class="relative flex items-center group">
       <!-- Input -->
       <input 
         formControlName="query"
         type="text"
-        placeholder="Search..."
-        class="input input-bordered w-full pl-12 pr-4 py-3 
-               text-gray-700 transition-all duration-300
-               focus:ring-2 focus:ring-primary focus:border-transparent
-               hover:bg-gray-50 rounded-full shadow-sm
-               dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700"
+        placeholder="Search here..."
+        class="input input-bordered w-full pl-12 pr-4 py-3 rounded-none text-gray-700 transition-all duration-300 first-letter:*:first-line:marker:selection:file:placeholder:backdrop:focus:ring-2 focus:ring-primary focus:border-transparent hover:bg-gray-50 shadow-sm dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700"
         aria-label="Search input"
       >
       
@@ -36,10 +31,20 @@
       <br>
       <button>Search</button>
     </form>
+
     <div class="mt-4 max-h-[60vh] overflow-y-auto">
       <!-- Your search results content will go here -->
       @for (item of searchedItems; track $index) {
-        <div>{{ item.title }}</div>
+        <div class="flex flex-row mb-4">
+          <div class="basis-1/5 bg-pink-400 h-24">
+            <img [src]="imgUrl(item.poster_path)" alt="{{ item.title }} movie poster">
+          </div>
+          <div class="basis-4/5 h-24 overflow-y-hidden pl-1">
+            <div class="font-semibold text-lg line-clamp-1">{{ item.title }}</div>
+            <div class="italic text-slate-700 text-sm line-clamp-3">{{ item.overview }}</div>
+          </div>
+        </div>
+        <div class="h-2"> </div>
       }
     </div>
   </div>
