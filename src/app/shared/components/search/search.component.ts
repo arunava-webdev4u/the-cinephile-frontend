@@ -17,13 +17,14 @@ interface SearchedItem {
 })
 export class SearchComponent {
   mediaService: MediaService = inject(MediaService);
+  type:string[] = ["movie", "tv"]
   searchTerm: FormGroup;
-
   searchedItems:SearchedItem[] = [];
   
   constructor() {
     this.searchTerm = new FormGroup({
-      query: new FormControl("")
+      query: new FormControl(""),
+      type: new FormControl(this.type[0])
     });
   }
 
@@ -32,21 +33,16 @@ export class SearchComponent {
   }
   
   searchMovies() {
-    this.mediaService.searchMedia(this.searchTerm.value.query).subscribe({
+    this.mediaService.searchMedia(this.searchTerm.value.query, this.searchTerm.value.type).subscribe({
       next: (response: any) => {
-          this.searchedItems = response.result.results;
-          console.log('Search results:', this.searchedItems);
-        },
-        error: (error) => {
-          console.error('Error searching movies:', error);
-          }
-        })
+        this.searchedItems = response.result.results;
+        console.log('Search results:', this.searchedItems);
+      },
+      error: (error) => {
+        console.error('Error searching movies:', error);
       }
-
-
-
-
-
+    })
+  }
 
 
 

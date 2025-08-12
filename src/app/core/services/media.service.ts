@@ -19,12 +19,11 @@ export class MediaService {
 
   // constructor() {}
 
-  searchMedia(query: string) {
+  searchMedia(query: string, type: string) {
   // searchMedia(type: string, query: string) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });
-    const type = "movie"
     const arr:any = []
     // console.log(type, query)
     return this.http.get(`${this.BASE_URL}?type=${type}&query=${encodeURIComponent(query)}`, { headers })
