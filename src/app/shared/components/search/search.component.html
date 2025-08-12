@@ -1,51 +1,50 @@
-<!-- Search Component -->
 <div class="w-full mx-auto px-4">
-<!-- <div class="max-w-2xl mx-auto px-4"> -->
-    <h4>Search Movies...</h4>
-    <form [formGroup]="searchTerm" (ngSubmit)="searchMovies()" class="relative flex items-center group">
+  <!-- <div class="max-w-2xl mx-auto px-4"> -->
+  <form [formGroup]="searchTerm" (ngSubmit)="searchMovies()" class="relative flex flex-row group gap-2">
+    <div class="basis-3/4">
       <!-- Input -->
-      <input 
-        formControlName="query"
-        type="text"
-        placeholder="Search..."
-        class="input input-bordered w-full pl-12 pr-4 py-3 
-               text-gray-700 transition-all duration-300
-               focus:ring-2 focus:ring-primary focus:border-transparent
-               hover:bg-gray-50 rounded-full shadow-sm
-               dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700"
-        aria-label="Search input"
-      >
-      
-      <!-- Search Icon -->
-      <div class="absolute left-3 text-gray-400 dark:text-gray-500">
-        <svg 
-          xmlns="http://www.w3.org/2000/svg" 
-          class="h-6 w-6" 
-          fill="none" 
-          viewBox="0 0 24 24" 
-          stroke="currentColor"
+      <label class="input input-bordered flex items-center gap-2">
+        <input 
+          formControlName="query"
+          type="text"
+          placeholder="Search here..."
+          class="grow"
+          aria-label="Search input"
         >
-          <path 
-            stroke-linecap="round" 
-            stroke-linejoin="round" 
-            stroke-width="2" 
-            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-          />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 16 16"
+          fill="currentColor"
+          class="h-4 w-4 opacity-70">
+          <path
+            fill-rule="evenodd"
+            d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+            clip-rule="evenodd" />
         </svg>
-      </div>
-      <br>
-      <button>Search</button>
-    </form>
-    <div class="mt-4 max-h-[60vh] overflow-y-auto">
-      <!-- Your search results content will go here -->
-       <div>Lorem ipsum dolor sit amet c</div>
-       <div>Lorem ipsum dolor sit amet c</div>
-       <div>Lorem ipsum dolor sit amet c</div>
-       <div>Lorem ipsum dolor sit amet c</div>
-       <div>Lorem ipsum dolor sit amet c</div>
-       <div>Lorem ipsum dolor sit amet c</div>
-       <div>Lorem ipsum dolor sit amet c</div>
-       <div>Lorem ipsum dolor sit amet c</div>
-       <div>Lorem ipsum dolor sit amet c</div>
+      </label>
     </div>
+
+    <div class="basis-1/4">
+      <select class="select select-bordered w-full text-xs" formControlName="type">
+        @for (item of type; track $index) {
+          <option [value]="item">{{ item? (item.charAt(0).toUpperCase() + item.slice(1)) : '' }}</option>
+        }
+      </select>
+    </div>
+  </form>
+
+  <div class="mt-4 max-h-[60vh] overflow-y-auto">
+    <!-- Your search results content will go here -->
+    @for (item of searchedItems; track $index) {
+      <div class="flex flex-row mb-4">
+        <div class="basis-1/5 h-28">
+          <img [src]="imgUrl(item.poster_path)" alt="{{ item.title }} movie poster">
+        </div>
+        <div class="basis-4/5 h-28 overflow-y-hidden pl-1">
+          <div class="font-semibold text-lg line-clamp-1">{{ item.title }}</div>
+          <div class="italic text-slate-700 text-sm line-clamp-4">{{ item.overview }}</div>
+        </div>
+      </div>
+    }
   </div>
+</div>
