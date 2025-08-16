@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 
 import { MediaService } from '../../../core/services/media.service';
 
+import { SkeletonComponent } from '../../../shared/components/skeleton/skeleton.component';
+
 export interface Movie {
   adult: boolean;
   backdrop_path: string | null;
@@ -60,7 +62,7 @@ export interface SpokenLanguage {
 
 @Component({
   selector: 'app-movie',
-  imports: [],
+  imports: [SkeletonComponent],
   templateUrl: './movie.component.html',
   styleUrl: './movie.component.css'
 })
@@ -90,60 +92,45 @@ export class MovieComponent {
     }
       */
     this.movie = {
-       "adult": false,
-       "backdrop_path": "/1Lz0CmgukN8KyzxIn8gGe4NLV3D.jpg",
-        "belongs_to_collection": null,
-        "budget": 250000000,
+        "adult": false,
+        "backdrop_path": "/7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg",
+        "belongs_to_collection": {
+            "id": 86311,
+            "name": "The Avengers Collection",
+            "poster_path": "/yFSIUVTCvgYrpalUktulvk3Gi5Y.jpg",
+            "backdrop_path": "/zuW6fOiusv4X9nnW3paHGfXcSll.jpg"
+        },
+        "budget": 356000000,
         "genres": [
+            {
+                "id": 12,
+                "name": "Adventure"
+            },
+            {
+                "id": 878,
+                "name": "Science Fiction"
+            },
             {
                 "id": 28,
                 "name": "Action"
-            },
-            {
-                "id": 18,
-                "name": "Drama"
             }
         ],
-        "homepage": "https://www.f1themovie.com",
-        "id": 911430,
-        "imdb_id": "tt16311594",
+        "homepage": "https://www.marvel.com/movies/avengers-endgame",
+        "id": 299534,
+        "imdb_id": "tt4154796",
         "origin_country": [
             "US"
         ],
         "original_language": "en",
-        "original_title": "F1",
-        "overview": "Racing legend Sonny Hayes is coaxed out of retirement to lead a struggling Formula 1 team—and mentor a young hotshot driver—while chasing one more chance at glory.",
-        "popularity": 74.3841,
-        "poster_path": "/9JePWGvgg1t4BOojyZEVQdOWjXO.jpg",
+        "original_title": "Avengers: Endgame",
+        "overview": "After the devastating events of Avengers: Infinity War, the universe is in ruins due to the efforts of the Mad Titan, Thanos. With the help of remaining allies, the Avengers must assemble once more in order to undo Thanos' actions and restore order to the universe once and for all, no matter what consequences may be in store.",
+        "popularity": 17.7585,
+        "poster_path": "/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg",
         "production_companies": [
             {
-                "id": 81,
-                "logo_path": "/8wOfUhA7vwU2gbPjQy7Vv3EiF0o.png",
-                "name": "Plan B Entertainment",
-                "origin_country": "US"
-            },
-            {
-                "id": 130,
-                "logo_path": "/c9dVHPOL3cqCr2593Ahk0nEKTEM.png",
-                "name": "Jerry Bruckheimer Films",
-                "origin_country": "US"
-            },
-            {
-                "id": 199632,
-                "logo_path": null,
-                "name": "Dawn Apollo Films",
-                "origin_country": "US"
-            },
-            {
-                "id": 194232,
-                "logo_path": "/oE7H93u8sy5vvW5EH3fpCp68vvB.png",
-                "name": "Apple Studios",
-                "origin_country": "US"
-            },
-            {
-                "id": 19647,
-                "logo_path": null,
-                "name": "Monolith Pictures",
+                "id": 420,
+                "logo_path": "/hUzeosd33nzE5MCNsZxCGEKTXaQ.png",
+                "name": "Marvel Studios",
                 "origin_country": "US"
             }
         ],
@@ -153,39 +140,42 @@ export class MovieComponent {
                 "name": "United States of America"
             }
         ],
-        "release_date": "2025-06-25",
-        "revenue": 579547225,
-        "runtime": 156,
+        "release_date": "2019-04-24",
+        "revenue": 2799439100,
+        "runtime": 181,
         "spoken_languages": [
-            {
-                "english_name": "Danish",
-                "iso_639_1": "da",
-                "name": "Dansk"
-            },
             {
                 "english_name": "English",
                 "iso_639_1": "en",
                 "name": "English"
             },
             {
-                "english_name": "German",
-                "iso_639_1": "de",
-                "name": "Deutsch"
+                "english_name": "Japanese",
+                "iso_639_1": "ja",
+                "name": "日本語"
             },
             {
-                "english_name": "Spanish",
-                "iso_639_1": "es",
-                "name": "Español"
+                "english_name": "Xhosa",
+                "iso_639_1": "xh",
+                "name": ""
             }
         ],
         "status": "Released",
-        "tagline": "This is just the start.",
-        "title": "F1",
+        "tagline": "Avenge the fallen.",
+        "title": "Avengers: Endgame",
         "video": false,
-        "vote_average": 7.6,
-        "vote_count": 1021
+        "vote_average": 8.238,
+        "vote_count": 26606
     }
     console.log(this.movie)
+  }
+
+  poster(path: string | null | undefined) {
+    return `https://image.tmdb.org/t/p/w780/${path}`
+  }
+  
+  backdrop(path: string | null | undefined) {
+    return `https://image.tmdb.org/t/p/w1280/${path}`
   }
 
   // searchMediaById
