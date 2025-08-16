@@ -1,4 +1,15 @@
-<div>
+<div class="grid grid-cols-1">
   <h1>Movie Details</h1>
   <p>Movie ID: {{ movieId }}</p>
+  <!-- <p>Movie Name: {{ movieId }}</p> -->
+  @if (movie) {
+    <div>
+      <h2>Movie Name: {{ movie.original_title }}</h2>
+      
+    </div>
+  } @else {
+    <div class="flex justify-center scale-150">
+      <span class="loading loading-bars loading-lg"></span>
+    </div>
+  }
 </div>
