@@ -5,8 +5,8 @@ import { MovieComponent } from './movie/movie.component';
 import { TvComponent } from './tv/tv.component';
 
 const routes: Routes = [
-  { path: 'movie/:id', component: MovieComponent },
-  { path: 'tv/:id', component: TvComponent }
+  { path: 'movie/:id', component: MovieComponent, data: { renderMode: 'client-side' } },
+  { path: 'tv/:id', component: TvComponent, data: { renderMode: 'client-side' } }
 ];
 
 @NgModule({

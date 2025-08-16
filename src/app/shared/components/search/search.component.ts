@@ -14,7 +14,7 @@ interface SearchedItem {
 
 @Component({
   selector: 'app-search',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ ReactiveFormsModule ],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
 })
