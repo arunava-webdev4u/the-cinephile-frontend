@@ -34,6 +34,7 @@
                 <div class="badge badge-ghost">{{ genre.name }}</div>
               }
             </p>
+            <p>Your Rating: * * * _ _ </p>
           </div>
         } @else {
           <app-skeleton></app-skeleton>
@@ -55,9 +56,6 @@
     </div>
   </div>
 
-  <!-- Add List & Rating Fetaure will go here -->
-  <div>Add to Your Lists/Add Rating</div>
-
   <div class="grid grid-cols-1">
     @if (movie) {
       <div>
@@ -68,5 +66,17 @@
         <span class="loading loading-bars loading-lg"></span>
       </div>
     }
+  </div>
+  
+  <br>
+  
+  <div>
+    Cast & Crew.....
+  </div>
+
+  <br>
+
+  <div>
+    Adding/View Reviews.....
   </div>
 </div>
