@@ -16,5 +16,6 @@ export const routes: Routes = [
     { path: 'show-lists', component: ShowListsComponent, canActivate: [authGuard] },
     { path: 'profile', component: ProfileComponent, canActivate: [authGuard] },
     { path: 'auth', loadChildren: () => import("./modules/auth/auth.module").then(m => m.AuthModule), canActivate: [guestGuard] },
+    { path: 'show', loadChildren: () => import("./modules/show/show.module").then(m => m.ShowModule), canActivate: [authGuard] },
     { path: '**', redirectTo: '' }
 ];

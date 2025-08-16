@@ -2,7 +2,6 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { AuthService } from './auth.service';
-import { url } from 'inspector';
 
 @Injectable({
   providedIn: 'root'
@@ -20,24 +19,14 @@ export class MediaService {
   // constructor() {}
 
   searchMedia(query: string, type: string) {
-  // searchMedia(type: string, query: string) {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });
-    const arr:any = []
-    // console.log(type, query)
     return this.http.get(`${this.BASE_URL}?type=${type}&query=${encodeURIComponent(query)}`, { headers })
-    // this.http.get(`${this.BASE_URL}?type=${type}&query=${encodeURIComponent(query)}`, { headers }).subscribe({
-    //   next: (response: any) => {
-    //     console.log('Search results:', response.result.results);
-    //   },
-    //   error: (error) => { 
-    //     console.error('Error searching media:', error);
-    //   },
-    //   complete: () => {
-    //     console.log('Search completed');
-    //     console.log('Search results:', arr.results);
-    //   }
-    // });
+  }
+
+  // showMedia(id:number, type:string) {
+  showMedia() {
+    
   }
 }
