@@ -53,14 +53,19 @@ export class AuthService {
     }
   }
 
+  verify_email() {
+
+  }
+
   register(registrationData:Register) {
     return this.http.post<User>(`${this.apiUrl}/register`, registrationData).subscribe({
       next: (response) => {
         if (isPlatformBrowser(this.platformId)) {
-          localStorage.setItem('token', response['token']);
-          this.authTokenSignal.set(localStorage.getItem('token'));
-          this.router.navigate(['/']);
-          // console.info('Registration successful');
+          // localStorage.setItem('token', response['token']);
+          // this.authTokenSignal.set(localStorage.getItem('token'));
+          console.log(response)
+          sessionStorage.setItem("email", registrationData.user.email)
+          // this.router.navigate(['/verify-email']);
         }
       },
       error: (err) => {
