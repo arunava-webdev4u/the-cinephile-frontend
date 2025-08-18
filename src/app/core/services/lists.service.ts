@@ -5,6 +5,8 @@ import { AuthService } from './auth.service';
 import { List } from '../../shared/interfaces/list';
 import { AddList } from '../../shared/interfaces/add-list';
 
+import { environment } from '../../../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -12,7 +14,7 @@ export class ListsService {
   http = inject(HttpClient);
   authService = inject(AuthService);
 
-  baseUrl = "http://localhost:3000/api/v1"
+  baseUrl = `${environment.apiUrl}`
   token = this.authService.authTokenSignal();
 
   defaultLists = signal<List[]>([]);

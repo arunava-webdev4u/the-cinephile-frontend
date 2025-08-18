@@ -7,6 +7,7 @@ import { User } from '../../shared/interfaces/user';
 
 import { Login } from '../../shared/interfaces/login';
 import { Register } from '../../shared/interfaces/register';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,8 @@ export class AuthService {
   router = inject(Router);
   private platformId = inject(PLATFORM_ID);
 
-  private apiUrl = "http://localhost:3000/api/v1/auth";
+
+  private baseUrl = `${environment.apiUrl}/auth`;
   authTokenSignal = signal<string | undefined | null>(undefined);
   
   constructor() {
@@ -25,7 +27,7 @@ export class AuthService {
   }
 
   login(loginCredentials:Login) {
-    return this.http.post<User>(`${this.apiUrl}/login`, loginCredentials).subscribe({
+    return this.http.post<User>(`${this.baseUrl}/login`, loginCredentials).subscribe({
       next: (response) => {
         if (isPlatformBrowser(this.platformId)) {
           localStorage.setItem('token', response['token']);
@@ -60,7 +62,7 @@ export class AuthService {
     const payload = { email: email, otp: code }
     console.log(payload)
     
-    return this.http.post<User>(`${this.apiUrl}/verify_email`, payload).subscribe({
+    return this.http.post<User>(`${this.baseUrl}/verify_email`, payload).subscribe({
       next: (response) => {
         console.log(response);
         sessionStorage.removeItem("email");
@@ -75,7 +77,7 @@ export class AuthService {
   }
 
   register(registrationData:Register) {
-    return this.http.post<any>(`${this.apiUrl}/register`, registrationData).subscribe({
+    return this.http.post<any>(`${this.baseUrl}/register`, registrationData).subscribe({
       next: (response) => {
         if (isPlatformBrowser(this.platformId)) {
           // localStorage.setItem('token', response['token']);
