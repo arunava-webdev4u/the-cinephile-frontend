@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { AuthService } from './auth.service';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class MediaService {
   private http = inject(HttpClient);
   private authService = inject(AuthService);
 
-  private BASE_URL = "http://localhost:3000/api/v1/search";
+  private BASE_URL = `${environment.apiUrl}/search`;
   private token = this.authService.authTokenSignal();
 
   // constructor() {}
