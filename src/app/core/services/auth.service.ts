@@ -53,19 +53,36 @@ export class AuthService {
     }
   }
 
-  verify_email() {
+  verify_email(otp:any) {
+    const email: string|null = sessionStorage.getItem("email");
+    const code: string = otp.otp
 
+    const payload = { email: email, otp: code }
+    console.log(payload)
+    
+    return this.http.post<User>(`${this.apiUrl}/verify_email`, payload).subscribe({
+      next: (response) => {
+        console.log(response);
+        sessionStorage.removeItem("email");
+        localStorage.setItem('token', response['token']);
+        this.authTokenSignal.set(localStorage.getItem('token'));
+        this.router.navigate(['/']);
+      },
+      error: (err) => {
+        console.error('Something went wrong. Please try again later.', err);
+      }
+    })
   }
 
   register(registrationData:Register) {
-    return this.http.post<User>(`${this.apiUrl}/register`, registrationData).subscribe({
+    return this.http.post<any>(`${this.apiUrl}/register`, registrationData).subscribe({
       next: (response) => {
         if (isPlatformBrowser(this.platformId)) {
           // localStorage.setItem('token', response['token']);
           // this.authTokenSignal.set(localStorage.getItem('token'));
           console.log(response)
           sessionStorage.setItem("email", registrationData.user.email)
-          // this.router.navigate(['/verify-email']);
+          this.router.navigate(['/auth/verify-email']);
         }
       },
       error: (err) => {
