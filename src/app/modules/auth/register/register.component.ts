@@ -22,7 +22,7 @@ interface RegisterInterface {
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
-  authService = inject(AuthService)
+  authService = inject(AuthService);
   currentAuthStatus = this.authService.authTokenSignal();
   registerForm: FormGroup;
 
@@ -43,6 +43,7 @@ export class RegisterComponent {
   }
 
   onSubmit() {
+    console.log(this.registerForm.value)
     const user:RegisterInterface = { user: { ...this.registerForm.value } }
     this.authService.register(user)
   }
