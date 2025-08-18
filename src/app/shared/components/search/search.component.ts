@@ -20,7 +20,7 @@ interface SearchedItem {
 })
 export class SearchComponent {
   router = inject(Router);
-  mediaService: MediaService = inject(MediaService);
+  mediaService = inject(MediaService);
   
   searchTerm: FormGroup;
   type:string[] = ["movie", "tv"]

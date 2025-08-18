@@ -1,4 +1,82 @@
-<div>
-  <h1>Movie Details</h1>
-  <p>Movie ID: {{ movieId }}</p>
+<div class="mb-10">
+  <!-- Profile Top -->
+  <div class="grid grid-cols-3 grid-rows-4">
+    <!-- Section 1: row 0-3 -->
+    <div class="row-start-1 row-end-3 col-start-1 col-end-4">
+      @if (movie) {
+        <img class="" [src]="backdrop(movie.backdrop_path)" />
+      } @else {
+        <div class="flex justify-center translate-y-36 scale-125">
+          <span class="loading loading-bars loading-lg"></span>
+        </div>
+      }
+    </div>
+      
+    <!-- Section 2: row 3-5 -->
+    <div class="row-start-3 row-end-5 col-start-1 col-end-4 grid grid-rows-2 grid-cols-2 bg-red-300">
+      <div class="row-start-1 row-span-1 col-start-2 col-span-1 bg-blue-400">
+        @if (movie) {
+          <div>
+            <p>TMDB Rating: {{movie.vote_average}} ({{movie.vote_count}})</p>
+            <p>Runtime: {{ movie.runtime }}</p>
+            <p>Release Date: {{ movie.release_date }}</p>
+          </div>
+        } @else {
+          <app-skeleton></app-skeleton>
+        }
+      </div>
+      <div class="row-start-2 row-span-1 col-span-2 bg-yellow-300">
+        @if (movie) {
+          <div>
+            <h2 class="text-2xl">{{ movie.original_title }}</h2>
+            <p>Genres: 
+              @for (genre of movie.genres; track $index) {
+                <div class="badge badge-ghost">{{ genre.name }}</div>
+              }
+            </p>
+            <p>Your Rating: * * * _ _ </p>
+          </div>
+        } @else {
+          <app-skeleton></app-skeleton>
+        }
+      </div>
+    </div>
+      
+    <!-- Section 3: row 2-4 -->
+    <div class="row-start-2 row-end-4 col-start-1 col-end-2 p-1.5 translate-x-4">
+      <div class="bg-white p-2">
+        @if (movie) {
+          <img class="" [src]="poster(movie.poster_path)" />
+        } @else {
+          <div class="flex justify-center min-h-36">
+            <span class="loading loading-bars loading-lg"></span>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1">
+    @if (movie) {
+      <div>
+        <p>Overview: {{ movie.overview }}</p>
+      </div>
+    } @else {
+      <div class="flex justify-center scale-150">
+        <span class="loading loading-bars loading-lg"></span>
+      </div>
+    }
+  </div>
+  
+  <br>
+  
+  <div>
+    Cast & Crew.....
+  </div>
+
+  <br>
+
+  <div>
+    Adding/View Reviews.....
+  </div>
 </div>
