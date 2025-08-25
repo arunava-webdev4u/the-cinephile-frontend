@@ -60,11 +60,9 @@ export class AuthService {
     const code: string = otp.otp
 
     const payload = { email: email, otp: code }
-    console.log(payload)
     
     return this.http.post<User>(`${this.baseUrl}/verify_email`, payload).subscribe({
       next: (response) => {
-        console.log(response);
         sessionStorage.removeItem("email");
         localStorage.setItem('token', response['token']);
         this.authTokenSignal.set(localStorage.getItem('token'));
