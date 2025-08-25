@@ -35,16 +35,21 @@
 
   <div class="mt-4 max-h-[60vh] overflow-y-auto">
     <!-- Your search results content will go here -->
-    @for (item of searchedItems; track $index) {
-      <div [id]="item.id" class="flex flex-row mb-4" (click)="navigate(item.id)">
-        <div class="basis-1/5 h-28">
-          <img [src]="imgUrl(item.poster_path)" alt="{{ item.title }} movie poster">
+    @if (searchedItems.length === 0) {
+      <div class="text-center text-slate-500 italic mb-3">No results found</div>
+    } @else {
+      @for (item of searchedItems; track $index) {
+        <div [id]="item.id" class="flex flex-row mb-4" (click)="navigate(item.id)">
+          <div class="basis-1/5 h-28">
+            <img [src]="imgUrl(item.poster_path)" alt="{{ item.title }} movie poster">
+          </div>
+          <div class="basis-4/5 h-28 overflow-y-hidden pl-2">
+            <div class="font-semibold text-lg line-clamp-1">{{ item.title }}</div>
+            <div class="italic text-slate-700 text-sm line-clamp-4">{{ item.overview }}</div>
+          </div>
         </div>
-        <div class="basis-4/5 h-28 overflow-y-hidden pl-2">
-          <div class="font-semibold text-lg line-clamp-1">{{ item.title }}</div>
-          <div class="italic text-slate-700 text-sm line-clamp-4">{{ item.overview }}</div>
-        </div>
-      </div>
+      }
     }
+
   </div>
 </div>
