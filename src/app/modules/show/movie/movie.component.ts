@@ -76,11 +76,10 @@ export class MovieComponent {
   ngOnInit(): void {
     this.movieId = this.route.snapshot.paramMap.get('id');
 
-    /* */
     if (this.movieId) {
       this.mediaService.searchMediaById(this.movieId, 'movie').subscribe({
         next: (response:any) => {
-          this.movie = response.result
+          this.movie = response
           console.log(this.movie)
         },
         error: (error) => {

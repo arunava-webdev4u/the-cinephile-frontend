@@ -52,7 +52,7 @@ export class SearchComponent {
   searchMovies() {
     this.mediaService.searchMedia(this.searchTerm.value.query, this.searchTerm.value.type).subscribe({
       next: (response: any) => {
-        this.searchedItems = response.result.results;
+        this.searchedItems = response.results;
         console.log('Search results:', this.searchedItems);
       },
       error: (error) => {
